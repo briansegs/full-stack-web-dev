@@ -40,5 +40,6 @@ SQLAlchemy
 
 * [SQLAlchemy Cheat Sheet](https://github.com/crazyguitar/pysheeet/blob/master/docs/notes/python-sqlalchemy.rst#set-a-database-url)
 * [Using PostgreSQL through SQLAlchemy](https://www.compose.com/articles/using-postgresql-through-sqlalchemy/)
+* [Notes](https://github.com/briansegs/full-stack-web-dev/blob/main/files/class-demo/SQLAlchemy-ORM-in-Depth-notes.py)
 
 
