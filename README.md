@@ -5,10 +5,10 @@ Markdown
 [ Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
 Codeacedemy Build Python Web Apps with Flask
-[ Path](https://www.codecademy.com/learn/paths/full-stack-engineer-career-path)
+[ Path](https://www.codecademy.com/learn/paths/build-python-web-apps-flask)
 
 Codeacedemy Full Stack Engineer 
-[ Path](https://www.codecademy.com/learn/paths/build-python-web-apps-flask)
+[ Path](https://www.codecademy.com/learn/paths/full-stack-engineer-career-path)
 
 Bash
 
