@@ -57,6 +57,33 @@ Driver.query.join('vehicles')
 # Query has a method join(<table_name>) for joining one model to another table.
 
 
+# SQLAlchemy Object Lifecycle:
+
+# Recall
+# We can insert new records into the database using SQLAlchemy by running
+person = Person(name='Amy')
+db.session.add(person)
+db.session.commit()
+# which will build a transaction for inserting in a person instance in our
+# model/table, and persist it to the database upon calling commit().
+
+# Takeaways:
+# * Within a session, we create transactions every time we want to commit work to the database.
+# * Proposed changes are not immediately committed to the database and instead go through stages to allow for undos.
+# * The ability to undo is allowed via db.session.rollback()
+
+# Stages:
+# 1. Transient: an object exists, it was defined.
+user1 = User(name='Amy')
+#...but not attached to a session (yet).
+# 2. Pending: an object was attached to a session. "Undo" becomes available
+# via db.session.rollback(). Waits for a flush to happen
+# 3. Flushed: about ready to be committed to the database, translating actions
+# into SQL command statements for the engine.
+# 4. Committed: manually called for a change to persist to the database
+# (permanently); session's transaction is cleared for a new set of changes.
+
+
 # review
 
 from flask_hello_app import db, Person
@@ -93,7 +120,6 @@ Person.query.first()
 # Model.query
 
 # Similar to doing a select statment with a where clause
-Person.query.filter_by(name='Brian')
 # Similar to doing a select * statment
 Person.query.all()
 # Similar to doing a group by count statment
