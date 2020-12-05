@@ -30,7 +30,7 @@ Flask
 
 PostpresSQL
 
-* [Postgres Cheatsheet](https://video.udacity-data.com/topher/2019/August/5d5a1055_postgres-psql-cheat-sheet/postgres-psql-cheat-sheet.pdf)
+* [Postgres Cheatsheet](https://gist.github.com/apolloclark/ea5466d5929e63043dcf)
 
 Psycopg2
 
