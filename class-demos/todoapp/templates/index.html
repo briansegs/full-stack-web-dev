@@ -3,13 +3,14 @@
         <title>Todo App</title>
     </head>
     <body>
-        <form method="post" action="/todos/create">
+        <form action="/todos/create" method="post">
+            <input type="number" name="id" />
             <input type="text" name="description" />
             <input type="submit" value="Create" />
         </form>
         <ul>
             {% for d in data %}
-            <li>{{ d.description }}</li>
+            <li>{{ d.id, d.description }}</li>
             {% endfor %}
         </ul>
     </body>
