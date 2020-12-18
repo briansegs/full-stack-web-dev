@@ -42,16 +42,32 @@
                 <li>
                     <input class="check-completed" data-id="{{ d.id }}" type="checkbox" {% if d.completed %} checked {% endif %} />
                     {{ d.description }}
-                    <button>&cross;</button>
+                    <button class="remove" data-id="{{ d.id }}" >&cross;</button>
                 </li>
                 {% endfor %}
             </ul>
         </div>
         <script>
+            const xBoxes = document.querySelectorAll('.remove');
+            for (let i = 0; i < xBoxes.length; i++) {
+                const xBox = xBoxes[i];
+                xBox.onclick = function(e) {
+                    console.log('event', e);
+                    const todoId = e.target.dataset['id'];
+                    fetch('/todos/' + todoId + '/delete', {
+                        method: 'DELETE',
+                    })
+                    .then(function() {
+                        location.reload()
+                    })
+                }
+            }
+
             const checkboxes = document.querySelectorAll('.check-completed');
             for (let i = 0; i < checkboxes.length; i++) {
                 const checkbox = checkboxes[i];
                 checkbox.onchange = function(e) {
+                    console.log('event', e);
                     const newCompleted = e.target.checked;
                     const todoId = e.target.dataset['id'];
                     fetch('/todos/' + todoId + '/set-completed', {
@@ -87,10 +103,11 @@
                 })
                 .then(function(jsonResponse) {
                     console.log(jsonResponse);
-                    const liItem = document.createElement('LI');
-                    liItem.innerHTML = jsonResponse['description'];
-                    document.getElementById('todos').appendChild(liItem)
+                    // const liItem = document.createElement('LI');
+                    // liItem.innerHTML = jsonResponse['description'];
+                    // document.getElementById('todos').appendChild(liItem)
                     document.getElementById('error').className = 'hidden';
+                    location.reload()
                 })
                 .catch(function() {
                     document.getElementById('error').className = '';
