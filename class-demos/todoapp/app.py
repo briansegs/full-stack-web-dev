@@ -27,6 +27,27 @@ class TodoList(db.Model):
     name = db.Column(db.String(), nullable=False)
     todos = db.relationship('Todo', backref='list', lazy=True, cascade="all, delete")
 
+@app.route('/todolists/create', methods=['POST'])
+def create_todolist():
+    error = False
+    body = {}
+    try:
+        name = request.get_json()['title']
+        todolist = TodoList(name=name)
+        db.session.add(todolist)
+        db.session.commit()
+        body['title'] = todolist.name
+    except:
+        error = True
+        db.session.rollback()
+        print(sys.exc_info())
+    finally:
+        db.session.close()
+    if error:
+        abort (400)
+    else:
+        return jsonify(body)
+
 @app.route('/todos/<list_id>/create', methods=['POST'])
 def create_todo(list_id):
     error = False
@@ -71,8 +92,7 @@ def delete_list(list_id):
         db.session.rollback()
     finally:
         db.session.close()
-        jsonify({'success': True})
-    return redirect(url_for('get_list_todos', list_id=1))
+    return jsonify({'success': True})
 
 @app.route('/todos/<todo_id>/delete', methods=['DELETE'])
 def delete_todo(todo_id):
