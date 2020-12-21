@@ -25,7 +25,7 @@ class TodoList(db.Model):
     __tablename__ = 'todolists'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
-    todos = db.relationship('Todo', backref='list', lazy=True)
+    todos = db.relationship('Todo', backref='list', lazy=True, cascade="all, delete")
 
 @app.route('/todos/<list_id>/create', methods=['POST'])
 def create_todo(list_id):
