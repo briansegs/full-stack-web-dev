@@ -89,7 +89,10 @@
             }
             document.getElementById('form').onsubmit = function(e) {
                 e.preventDefault();
-                fetch('/todos/create', {
+                const pathname = window.location.pathname;
+                const parts = pathname.split('/')
+                const listId = parts[parts.length-1]
+                fetch('/todos/' + listId + '/create', {
                     method: 'POST',
                     body: JSON.stringify({
                         'description': document.getElementById('description').value

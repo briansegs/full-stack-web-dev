@@ -27,13 +27,13 @@ class TodoList(db.Model):
     name = db.Column(db.String(), nullable=False)
     todos = db.relationship('Todo', backref='list', lazy=True)
 
-@app.route('/todos/create', methods=['POST'])
-def create_todo():
+@app.route('/todos/<list_id>/create', methods=['POST'])
+def create_todo(list_id):
     error = False
     body = {}
     try:
         description = request.get_json()['description']
-        todo = Todo(description=description)
+        todo = Todo(description=description, list_id=list_id)
         db.session.add(todo)
         db.session.commit()
         body['description'] = todo.description
