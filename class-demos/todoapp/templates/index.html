@@ -36,6 +36,7 @@
                 {% for list in lists %}
                 <li>
                     <a href="/lists/{{ list.id }}">{{ list.name }}</a>
+                    <button class="remove-list" data-id="{{ list.id }}" >&cross;</button>
                 </li>
                 {% endfor %}
             </ul>
@@ -52,16 +53,32 @@
                 <li>
                     <input class="check-completed" data-id="{{ todo.id }}" type="checkbox" {% if todo.completed %} checked {% endif %} />
                     {{ todo.description }}
-                    <button class="remove" data-id="{{ todo.id }}" >&cross;</button>
+                    <button class="remove-todo" data-id="{{ todo.id }}" >&cross;</button>
                 </li>
                 {% endfor %}
             </ul>
         </div>
         <script>
-            const xBoxes = document.querySelectorAll('.remove');
-            for (let i = 0; i < xBoxes.length; i++) {
-                const xBox = xBoxes[i];
-                xBox.onclick = function(e) {
+
+            const listBoxes = document.querySelectorAll('.remove-list');
+            for (let i = 0; i < listBoxes.length; i++) {
+                const listBox = listBoxes[i];
+                listBox.onclick = function(e) {
+                    console.log('event', e);
+                    const listId = e.target.dataset['id'];
+                    fetch('/lists/' + listId + '/delete', {
+                        method: 'DELETE',
+                    })
+                    .then(function() {
+                        location.reload()
+                    })
+                }
+            }
+
+            const todoBoxes = document.querySelectorAll('.remove-todo');
+            for (let i = 0; i < todoBoxes.length; i++) {
+                const todoBox = todoBoxes[i];
+                todoBox.onclick = function(e) {
                     console.log('event', e);
                     const todoId = e.target.dataset['id'];
                     fetch('/todos/' + todoId + '/delete', {
