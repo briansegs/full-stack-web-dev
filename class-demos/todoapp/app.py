@@ -71,7 +71,8 @@ def delete_list(list_id):
         db.session.rollback()
     finally:
         db.session.close()
-    return jsonify({'success': True})
+        jsonify({'success': True})
+    return redirect(url_for('get_list_todos', list_id=1))
 
 @app.route('/todos/<todo_id>/delete', methods=['DELETE'])
 def delete_todo(todo_id):
