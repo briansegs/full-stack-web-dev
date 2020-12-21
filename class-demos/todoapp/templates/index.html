@@ -31,18 +31,28 @@
         </style>
     </head>
     <body>
-        <div class="todos-wrapper"></div>
+        <div class="lists-wrapper">
+            <ul id="lists">
+                {% for list in lists %}
+                <li>
+                    <a href="/lists/{{ list.id }}">{{ list.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="todos-wrapper">
+            <h4>{{ active_list.name }}</h4>
             <form id="form">
                 <input id="description" type="text" name="description" />
                 <input type="submit" value="Create" />
             </form>
             <div id="error" class="hidden">Some thing went wrong!</div>
             <ul id="todos">
-                {% for d in data %}
+                {% for todo in todos %}
                 <li>
-                    <input class="check-completed" data-id="{{ d.id }}" type="checkbox" {% if d.completed %} checked {% endif %} />
-                    {{ d.description }}
-                    <button class="remove" data-id="{{ d.id }}" >&cross;</button>
+                    <input class="check-completed" data-id="{{ todo.id }}" type="checkbox" {% if todo.completed %} checked {% endif %} />
+                    {{ todo.description }}
+                    <button class="remove" data-id="{{ todo.id }}" >&cross;</button>
                 </li>
                 {% endfor %}
             </ul>
